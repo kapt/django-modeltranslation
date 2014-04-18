@@ -317,7 +317,7 @@ class MultilingualManager(models.Manager):
         qs = super(MultilingualManager, self).get_query_set()
         if qs.__class__ == models.query.QuerySet:
             qs.__class__ = MultilingualQuerySet
-        else:
+        elif qs.__class__ is not MultilingualQuerySet:
             class NewClass(qs.__class__, MultilingualQuerySet):
                 pass
             NewClass.__name__ = 'Multilingual%s' % qs.__class__.__name__
